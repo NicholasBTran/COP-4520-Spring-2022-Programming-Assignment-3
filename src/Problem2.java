@@ -1,28 +1,29 @@
 // Nicholas Tran
 // COP 4520 - Parallel Programming
 // Spring 2022
-// Programming Assignment 3, Problem 1: The Birthday Presents Party
+// Programming Assignment 3, Problem 2: Atmospheric Temperature Reading Module
 
 import java.util.ArrayList;
 
-public class Problem1 {
-    private final static int THREADS = 4;
+public class Problem2 {
+    private final static int THREADS = 8;
 
     public static void main(String[] args) {
         long startTime, stopTime, elapsedTime;
         startTime = System.currentTimeMillis();
-        LockFreeList<Integer> instance;
-        ArrayList<Servant> thread = new ArrayList<>();
-        ArrayList<Integer> orderedBag = new ArrayList<>();
+        ArrayList<Sensor> thread = new ArrayList<>();
 
-        // Some setup for the Servant threads
-        Servant.createBag();
+        // Sensor setup
+        Sensor.setupList();
 
-        // Create servant threads
-        for (int i = 0; i < THREADS; i++) {
-            Servant s = new Servant();
-            s.setName("Servant-" + i);
-            thread.add(s);
+        // Create sensor threads
+        Sensor.LeadSensor s = new Sensor.LeadSensor();
+        s.setName("Sensor-" + 0);
+        thread.add(s);
+        for (int i = 1; i < THREADS; i++) {
+            Sensor sensor = new Sensor();
+            sensor.setName("Sensor-" + i);
+            thread.add(sensor);
         }
 
         for (int i = 0; i < THREADS; i++) {
@@ -37,7 +38,6 @@ public class Problem1 {
             }
         }
 
-        System.out.println("Total number of Thank You's written: " + Servant.numThankYous.get());
         stopTime = System.currentTimeMillis();
         elapsedTime = stopTime - startTime;
         System.out.println("Elapsed Time (ms): " + elapsedTime);
