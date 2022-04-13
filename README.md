@@ -1,5 +1,6 @@
 # COP-4520-Spring-2022-Programming-Assignment-3
 <h2>Problem 1</h2>
+All source files are in the `src` folder.<br>
 To compile: `javac *.java`<br>
 To run: `java Problem1`<br>
 Uses a lock free linked list to simulate a chain of presents connected together. The linked list code is taken from the textbook and modified to work for the problem. 
