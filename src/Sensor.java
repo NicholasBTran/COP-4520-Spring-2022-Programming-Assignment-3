@@ -5,19 +5,19 @@ import java.util.Random;
 public class Sensor extends Thread {
     static final Random random = new Random();
     private final static int HOURS_TO_RUN = 5;
-    private final static int WAIT_TIME = 200;
-    static ArrayList<LockFreeList<Double>> readings = new ArrayList<>();
-    static ArrayList<LockFreeList<Double>> tenMinuteReadings = new ArrayList<>();
+    private final static int WAIT_TIME = 20;
+    static ArrayList<LockFreeListDoubles<Double>> readings = new ArrayList<>();
+    static ArrayList<LockFreeListDoubles<Double>> tenMinuteReadings = new ArrayList<>();
     static ArrayList<ArrayList<Double>> tenMinuteDiff = new ArrayList<>();
 
     public static void setupList() {
         for (int i = 0; i < HOURS_TO_RUN; i++) {
-            readings.add(new LockFreeList<Double>());
+            readings.add(new LockFreeListDoubles<Double>());
         }
 
         for (int i = 0; i < HOURS_TO_RUN; i++) {
             for (int j = 0; j < 6; j++) {
-                tenMinuteReadings.add(new LockFreeList<Double>());
+                tenMinuteReadings.add(new LockFreeListDoubles<Double>());
             }
             tenMinuteDiff.add(new ArrayList<Double>());
         }
@@ -47,7 +47,7 @@ public class Sensor extends Thread {
 
     public static class LeadSensor extends Sensor {
         protected void createHourlyReport(int hour) {
-            LockFreeList<Double> hourlyReadings = readings.get(hour);
+            LockFreeListDoubles<Double> hourlyReadings = readings.get(hour);
             double[] highs = hourlyReadings.fiveHigest(8 * 60 - 10);
             double[] lows = hourlyReadings.fiveLowest();
             ArrayList<Double> list = tenMinuteDiff.get(hour);
@@ -65,22 +65,22 @@ public class Sensor extends Thread {
             System.out.println();
             double high = Collections.max(list);
             int index = list.indexOf(high);
-            System.out.println("Largest difference for hour " + hour + ": " + high + " at " + index * 10 + " minutes.");
+            System.out.println("Largest difference for hour " + hour + ": " + high + " at " + index * 10 + " to " + (index + 1) * 10 + " minutes.\n");
         }
 
         protected void createTenMinuteReport(int hours, int tenMinutes) {
-            LockFreeList<Double> minutelyReadings = tenMinuteReadings.get(tenMinutes);
+            LockFreeListDoubles<Double> minutelyReadings = tenMinuteReadings.get(tenMinutes);
             double[] highs = minutelyReadings.fiveHigest(8 * 60 - 5);
             double[] lows = minutelyReadings.fiveLowest();
             ArrayList<Double> list = tenMinuteDiff.get(hours);
 
-            System.out.print("Hi for minutes " + (hours * 60 + tenMinutes * 10) + ": ");
+            System.out.print("Hi for hour " + hours + " minutes " + (tenMinutes * 10) + ": ");
             for (int i = 0; i < 5; i++) {
                 System.out.print(highs[i] + " ");
             }
             System.out.println();
 
-            System.out.print("Lo for minutes " + (hours * 60 + tenMinutes * 10) + ": ");
+            System.out.print("Ho for hour " + hours + " minutes " + (tenMinutes * 10) + ": ");
             for (int i = 0; i < 5; i++) {
                 System.out.print(lows[i] + " ");
             }
