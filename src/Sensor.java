@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Sensor extends Thread {
     static final Random random = new Random();
-    private final static int HOURS_TO_RUN = 5;
-    private final static int WAIT_TIME = 20;
+    private final static int HOURS_TO_RUN = 5; // How long to collect readings
+    private final static int WAIT_TIME = 1; // To simulate waiting a minute
     static ArrayList<LockFreeListDoubles<Double>> readings = new ArrayList<>();
     static ArrayList<LockFreeListDoubles<Double>> tenMinuteReadings = new ArrayList<>();
     static ArrayList<ArrayList<Double>> tenMinuteDiff = new ArrayList<>();
@@ -34,8 +34,8 @@ public class Sensor extends Thread {
                     Double reading = randomReading();
                     readings.get(i).add(reading);
                     tenMinuteReadings.get(j).add(reading);
-                    // Wait a minute
                     try {
+                        // Wait a minute
                         Thread.sleep(WAIT_TIME);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -105,7 +105,8 @@ public class Sensor extends Thread {
                         }
                     }
                     createTenMinuteReport(i, j);
-                } createHourlyReport(i);
+                }
+                createHourlyReport(i);
             }
         }
     }

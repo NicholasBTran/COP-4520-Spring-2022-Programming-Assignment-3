@@ -1,9 +1,7 @@
-import java.util.concurrent.atomic.AtomicMarkableReference;
-
 // Nicholas Tran
 // From "Multiprocessor Synchronization and Concurrent Data Structures",
 // by Maurice Herlihy and Nir Shavit.
-// Copyright 2006 Elsevier Inc. All rights reserved.
+// Copyright 2021 Elsevier Inc. All rights reserved.
 
 import java.util.concurrent.atomic.AtomicMarkableReference;
 
