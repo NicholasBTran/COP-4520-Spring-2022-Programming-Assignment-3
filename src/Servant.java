@@ -30,7 +30,7 @@ public class Servant extends Thread {
 
         // Keep working until the bag is empty, and all thanks you's have been written.
         while (!unorderedBag.isEmpty() || numThankYous.get() < NUM_PRESENTS) {
-            randomInt = random.nextInt(0, 3);
+            randomInt = random.nextInt(3);
 
             // The servants will randomly decide to add, remove, or check if a present is in the chain.
             switch (randomInt) {
@@ -47,7 +47,6 @@ public class Servant extends Thread {
                 case 1:
                     // Write "Thank you" card, and remove present from chain
                     if (!chain.isEmpty()) {
-                        // randomInt = random.nextInt(0, NUM_PRESENTS);
                         Integer toRemove = removeList.poll();
                         if (toRemove != null && chain.remove(toRemove)) {
                             numThankYous.getAndIncrement();
@@ -58,7 +57,7 @@ public class Servant extends Thread {
                     break;
                 case 2:
                     // Check if gift is in the chain
-                    randomInt = random.nextInt(0, NUM_PRESENTS);
+                    randomInt = random.nextInt(NUM_PRESENTS);
                     chain.contains(randomInt);
                     break;
             }

@@ -24,7 +24,7 @@ public class Sensor extends Thread {
     }
 
     protected double randomReading() {
-        return Math.floor(random.nextDouble(-100, 70) * 1000) / 1000;
+        return Math.floor((random.nextDouble()*170 - 100) * 1000) / 1000;
     }
 
     public void run() {
@@ -80,7 +80,7 @@ public class Sensor extends Thread {
             }
             System.out.println();
 
-            System.out.print("Ho for hour " + hours + " minutes " + (tenMinutes * 10) + ": ");
+            System.out.print("Lo for hour " + hours + " minutes " + (tenMinutes * 10) + ": ");
             for (int i = 0; i < 5; i++) {
                 System.out.print(lows[i] + " ");
             }
