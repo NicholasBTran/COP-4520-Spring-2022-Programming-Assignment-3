@@ -5,7 +5,7 @@ import java.util.Random;
 public class Sensor extends Thread {
     static final Random random = new Random();
     private final static int HOURS_TO_RUN = 5; // How long to collect readings
-    private final static int WAIT_TIME = 1; // To simulate waiting a minute
+    private final static int WAIT_TIME = 10; // To simulate waiting a minute
     static ArrayList<LockFreeListDoubles<Double>> readings = new ArrayList<>();
     static ArrayList<LockFreeListDoubles<Double>> tenMinuteReadings = new ArrayList<>();
     static ArrayList<ArrayList<Double>> tenMinuteDiff = new ArrayList<>();

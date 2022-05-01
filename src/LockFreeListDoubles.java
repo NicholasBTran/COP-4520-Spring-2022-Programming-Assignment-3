@@ -101,10 +101,6 @@ public class LockFreeListDoubles<T> {
         double[] highs = new double[5];
         Node curr = head.next.getReference();
 
-//        for (int i = 0; i < len; i++) {
-//            curr = curr.next.getReference();
-//        }
-
         while (curr.next.getReference().next.getReference().next.getReference().next.getReference().next.getReference().key != Double.MAX_VALUE) {
             curr = curr.next.getReference();
         }
@@ -117,10 +113,6 @@ public class LockFreeListDoubles<T> {
         return highs;
     }
 
-    public boolean isEmpty() {
-        return head.next.getReference().key == Double.MAX_VALUE;
-    }
-
     public class Node {
         T item;
         double key;
@@ -128,7 +120,7 @@ public class LockFreeListDoubles<T> {
 
         Node(T item) {
             this.item = item;
-            this.key = ((Double) item).intValue();
+            this.key = (Double) item;
             this.next = new AtomicMarkableReference<Node>(null, false);
         }
 
